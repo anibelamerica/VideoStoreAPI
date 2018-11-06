@@ -20,8 +20,4 @@ class MoviesController < ApplicationController
     @movie = Movie.find_by(id: params[:id])
   end
 
-  # def jsonify(movie_data)
-  #   return movie_data.as_json(only: [:title, :overview, :release_date, :inventory] )
-  # end
-
 end

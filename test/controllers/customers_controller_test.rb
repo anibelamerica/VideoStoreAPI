@@ -23,22 +23,19 @@ describe CustomersController do
   describe 'index' do
     it 'should list all customers in JSON and renders a status code of success' do
       # Act
-      get customers_path
+      get customers_path, as: :json
 
       # Assert
       body = parse_json(expected_type: Array)
 
       expect(body.length).must_equal Customer.count
 
-      # body.each do |pet|
-      #   expect(pet.keys.sort).must_equal PET_FIELDS
-      # end
     end
 
     it "returns an empty array when there are no pets" do
       Customer.destroy_all
 
-      get customers_path
+      get customers_path, as: :json
 
       #Assert
       body = parse_json(expected_type: Array)

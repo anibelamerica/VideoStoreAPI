@@ -15,10 +15,10 @@ describe MoviesController do
   it 'is a real working route and returns JSON' do
     movie = Movie.first
     movie_id = movie.id
-
-    get movie_path(movie_id)
-
+    # binding.pry
+    get movie_path(movie_id), as: :json
     body = parse_json(expected_type: Hash)
+    # binding.pry
 
     expect(body.keys.sort).must_equal MOVIE_FIELDS
   end
@@ -29,7 +29,7 @@ describe MoviesController do
     movie.destroy
 
     #Act
-    get movie_path(movie_id)
+    get movie_path(movie_id), as: :json
 
     #Assert
     body = parse_json(expected_type: Hash, expected_status: :not_found)
