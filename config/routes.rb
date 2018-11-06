@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   get '/zomg', to: 'application#test', as: 'test'
 
   resources :movies, only: [:index, :show, :create]
+  resources :customers, only: [:index, :show]
 end
