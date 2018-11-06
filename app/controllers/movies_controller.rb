@@ -6,9 +6,7 @@ class MoviesController < ApplicationController
   end
 
   def show
-    if @movie
-      render json: jsonify(@movie)
-    else
+    unless @movie
       render_error(:not_found, { movie_id: ["Movie does not exist"] })
     end
   end
@@ -22,8 +20,8 @@ class MoviesController < ApplicationController
     @movie = Movie.find_by(id: params[:id])
   end
 
-  def jsonify(movie_data)
-    return movie_data.as_json(only: [:title, :overview, :release_date, :inventory] )
-  end
+  # def jsonify(movie_data)
+  #   return movie_data.as_json(only: [:title, :overview, :release_date, :inventory] )
+  # end
 
 end
