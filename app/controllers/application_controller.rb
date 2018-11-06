@@ -4,4 +4,8 @@ class ApplicationController < ActionController::API
     render json: { test_message: 'It works!' }
   end
 
+  def render_error(status, errors)
+    render json: { errors: errors }, status: status
+  end
+
 end
