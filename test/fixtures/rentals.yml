@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ckeck_out: 2018-11-06
+  check_in: 2018-11-06
+
+two:
+  ckeck_out: 2018-11-06
+  check_in: 2018-11-06
