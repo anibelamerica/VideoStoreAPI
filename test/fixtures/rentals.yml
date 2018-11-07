@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  ckeck_out: 2018-11-06
-  check_in: 2018-11-06
+rental_one:
+  checked_out?: true
+  due_date: 2018-11-16
+  customer: customer_one
+  movie: movie_one
 
-two:
-  ckeck_out: 2018-11-06
-  check_in: 2018-11-06
+rental_two:
+  checked_out?: false
+  due_date: 2018-11-16
+  customer: customer_one
+  movie: movie_one

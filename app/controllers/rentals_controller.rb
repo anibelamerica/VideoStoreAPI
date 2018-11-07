@@ -4,7 +4,6 @@ class RentalsController < ApplicationController
 
     if rental.save
       rental.assign_due_date
-      binding.pry
       # movie.remove_inventory
       # For optionals with inventory, need to change amount when movie is checked out.
 
@@ -15,10 +14,19 @@ class RentalsController < ApplicationController
   end
 
   def update
-    rental = Rental.find_by(customer_id: params[:customer_id], movie_id: params[:movie_id] )
+    customer_id = params[:customer_id]
+    movie_id = params[:movie_id]
+
+    rental = Rental.find_by(
+      customer_id: customer_id,
+      movie_id: movie_id,
+      checked_out?: true
+    )
 
     rental.check_in_movie
     if rental.save
+
+      #movie = Movie.find_by(id: movie_id)
       # movie.add_inventory
       # For optionals with inventory, need to change amount when movie is checked back in.
       render json: { id: rental.id }
