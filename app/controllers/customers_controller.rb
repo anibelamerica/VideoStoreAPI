@@ -1,11 +1,12 @@
 class CustomersController < ApplicationController
 
   def index
-    # binding.pry
     if params[:sort]
-      binding.pry
+      @customers = Customer.order(params[:sort])
+      # binding.pry
+    else
+      @customers = Customer.all
     end
-    @customers = Customer.all
 
   end
 
