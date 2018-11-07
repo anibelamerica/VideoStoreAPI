@@ -1,10 +1,14 @@
 class RentalsController < ApplicationController
   def create # checkout-out method
     rental = Rental.new(rental_params)
+    movie = Movie.find_by(id: params[:movie_id])
+
+    unless movie.available_inventory > 0
+      #show errror
+    end
 
     if rental.save
       rental.assign_due_date
-      # movie.remove_inventory
       # For optionals with inventory, need to change amount when movie is checked out.
 
       render json: { id: rental.id }
