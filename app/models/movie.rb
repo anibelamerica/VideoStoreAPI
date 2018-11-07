@@ -7,7 +7,6 @@ class Movie < ApplicationRecord
   has_many :rentals
 
   def available_inventory
-    # self.rentals
-
+    return self.inventory - self.rentals.count { |rental| rental.checked_out?}
   end
 end
