@@ -4,6 +4,7 @@ class RentalsController < ApplicationController
 
     if rental.save
       rental.assign_due_date
+      binding.pry
       # movie.remove_inventory
       # For optionals with inventory, need to change amount when movie is checked out.
 

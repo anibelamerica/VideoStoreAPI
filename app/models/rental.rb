@@ -7,7 +7,7 @@ class Rental < ApplicationRecord
   belongs_to :movie
 
   def assign_due_date
-    checkout_date = self.created_at
+    checkout_date = self.created_at.to_date
     self.update(due_date: (checkout_date + ONE_WEEK))
   end
 
