@@ -81,7 +81,6 @@ describe Movie do
     end
   end
 
-  # TODO: These are stubbed for now. Wave 3 may address them
   describe 'relations' do
 
     let(:movie) { Movie.first }
@@ -93,26 +92,18 @@ describe Movie do
       end
     end
 
-    # TODO: Might not be needed, why would we ever need to know the list of customers who have had or currently have rentals
-    it 'has some customers through rentals' do
-      movie.must_respond_to :customers
-      movie.customers.each do |customer|
-        customer.must_be_kind_of Customer
-      end
-    end
   end
 
-  # TODO: These are stubbed for now. Wave 3 may address them
   describe 'custom methods' do
 
     describe 'available_inventory' do
 
-      let(:movie) { Movie.first }
+      let(:unavailable_movie) { movies(:movie_one) }
+      let(:available_movie) { movies(:movie_two) }
 
       it 'returns the available inventory for a given movie' do
-        # movie must have 1 current rental on it
-        # TODO: may want to arrange this now if rentals.yml are old rental dates
-        (movie.available_inventory).must_equal 0
+        (unavailable_movie.available_inventory).must_equal 0
+        (available_movie.available_inventory).must_equal 1
       end
 
     end
@@ -122,6 +113,7 @@ describe Movie do
       let(:movie) { Movie.first }
 
       it 'returns the total checked out copies of this movie' do
+        skip
         # movie must have 1 current rental on it
         # TODO: may want to arrange this now if rentals.yml are old rental dates
         (movie.checked_out_count).must_equal 1

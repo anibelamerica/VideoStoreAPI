@@ -5,4 +5,9 @@ class Movie < ApplicationRecord
   validates :inventory, presence: true, numericality: true
 
   has_many :rentals
+
+  def available_inventory
+    # self.rentals
+
+  end
 end
