@@ -20,7 +20,7 @@ class MoviesController < ApplicationController
       render_error(:bad_request, movie.errors.messages)
     end
   end
-
+  
   private
 
   def movie_params
