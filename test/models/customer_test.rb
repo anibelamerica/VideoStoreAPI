@@ -3,7 +3,7 @@ require "test_helper"
 describe Customer do
 
   describe 'validations' do
-    let(:customer) { customers(:one) }
+    let(:customer) { customers(:customer_one) }
 
     it "must be valid" do
       value(customer).must_be :valid?
@@ -47,6 +47,45 @@ describe Customer do
 
   describe 'relations' do
     it 'can have many rentals' do
+      customer = customers(:customer_one)
+      customer.must_respond_to :rentals
+      customer.rentals.each do |rental|
+        rental.must_be_kind_of Rental
+      end
     end
   end
+
+  describe 'custom methods' do
+
+    describe 'movies_checked_out' do
+      it 'returns an array of rentals currently checked out by this customer' do
+        customer = customers(:customer_one)
+
+        result = customer.movies_checked_out
+        result.must_be_kind_of Array
+        result.each do |rental|
+          rental.must_be_kind_of Rental
+          rental.customer_id.must_equal customer.id
+        end
+      end
+
+      it 'returns an empty array if there are no currently checked out rentals by this customer' do
+        customer = customers(:customer_two)
+
+        result = customer.movies_checked_out
+        result.must_equal []
+      end
+    end
+
+    describe 'movies_checked_out_count' do
+      it 'returns the number of movies currently checked out by this customer' do
+        customer = customers(:customer_one)
+
+        result = customer.movies_checked_out_count
+        expect(result).must_equal 1
+      end
+    end
+
+  end
+
 end
