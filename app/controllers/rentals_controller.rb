@@ -4,13 +4,12 @@ class RentalsController < ApplicationController
     movie = Movie.find_by(id: params[:movie_id])
 
     unless movie.available_inventory > 0
-      #show errror
+      render_error(:bad_request, { inventory: ["Not enough inventory available"] })
+      return
     end
 
     if rental.save
       rental.assign_due_date
-      # For optionals with inventory, need to change amount when movie is checked out.
-
       render json: { id: rental.id }
     else
       render_error(:bad_request, rental.errors.messages)
@@ -29,10 +28,6 @@ class RentalsController < ApplicationController
 
     rental.check_in_movie
     if rental.save
-
-      #movie = Movie.find_by(id: movie_id)
-      # movie.add_inventory
-      # For optionals with inventory, need to change amount when movie is checked back in.
       render json: { id: rental.id }
     else
       render_error(:bad_request, rental.errors.messages)

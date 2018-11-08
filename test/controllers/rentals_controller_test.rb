@@ -17,7 +17,7 @@ describe RentalsController do
     let(:rental_data) {
       {
         customer_id: customers(:customer_two).id,
-        movie_id: movies(:movie_one).id
+        movie_id: movies(:movie_two).id
       }
     }
 
@@ -29,6 +29,22 @@ describe RentalsController do
       new_rental = Rental.last
       new_rental.checked_out?.must_equal true
       must_respond_with :success
+    end
+
+    it "does not create a rental for a movie that does not have available inventory and renders a bad request" do
+      expect {
+        post check_out_path, params: rental_data
+      }.must_change 'Rental.count', 1
+
+      new_rental = Rental.last
+      new_rental.checked_out?.must_equal true
+      must_respond_with :success
+
+      expect {
+        post check_out_path, params: rental_data
+      }.wont_change 'Rental.count'
+
+      must_respond_with :bad_request
     end
 
     it "returns a bad request for incorrectly creating a rental" do
