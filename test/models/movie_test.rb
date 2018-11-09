@@ -1,12 +1,6 @@
 require "test_helper"
 
 describe Movie do
-  # let(:movie) { Movie.new }
-  #
-  # it "must be valid" do
-  #   value(movie).must_be :valid?
-  # end
-
   describe 'validations' do
 
     let(:movie_data) {
@@ -105,22 +99,6 @@ describe Movie do
         (unavailable_movie.available_inventory).must_equal 0
         (available_movie.available_inventory).must_equal 1
       end
-
     end
-
-    describe 'helper method checked_out_count' do
-
-      let(:movie) { Movie.first }
-
-      it 'returns the total checked out copies of this movie' do
-        skip
-        # movie must have 1 current rental on it
-        # TODO: may want to arrange this now if rentals.yml are old rental dates
-        (movie.checked_out_count).must_equal 1
-      end
-
-    end
-
   end
-
 end
