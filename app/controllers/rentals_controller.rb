@@ -3,7 +3,10 @@ class RentalsController < ApplicationController
     rental = Rental.new(rental_params)
     movie = Movie.find_by(id: params[:movie_id])
 
-    unless movie.available_inventory > 0
+    if !movie
+      render_error(:bad_request, { movie: ["Movie must exist"] })
+      return
+    elsif movie.available_inventory < 1
       render_error(:bad_request, { inventory: ["Not enough inventory available"] })
       return
     end
@@ -32,6 +35,10 @@ class RentalsController < ApplicationController
     else
       render_error(:bad_request, rental.errors.messages)
     end
+  end
+
+  def overdue
+    @rentals = Rental.get_overdue
   end
 
   private

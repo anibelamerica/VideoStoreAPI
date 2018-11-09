@@ -15,4 +15,12 @@ class Rental < ApplicationRecord
   def check_in_movie
     self.update(checked_out?: false)
   end
+
+  def self.get_overdue
+    return Rental.select { |rental| rental.overdue?}
+  end
+
+  def overdue?
+    return self.checked_out? && Date.today > self.due_date
+  end
 end

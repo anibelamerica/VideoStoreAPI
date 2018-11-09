@@ -2,7 +2,9 @@ require "test_helper"
 
 describe RentalsController do
 
-  RENTAL_FIELDS = %w(movie_id title customer_id name postal_code checkout_date due_date)
+  RENTAL_FIELDS = %w(movie_id title customer_id name postal_code checkout_date due_date).sort
+
+  OVERDUE_FIELDS = %w(movie_id customer_id due_date title name postal_code checkout_date ).sort
 
   def parse_json(expected_type:, expected_status: :success)
     must_respond_with expected_status
@@ -52,13 +54,27 @@ describe RentalsController do
 
       expect {
         post check_out_path, params: rental_data
-      }.must_change 'Rental.count', 0
+      }.wont_change 'Rental.count'
 
       must_respond_with :bad_request
       body = JSON.parse(response.body)
       body.must_be_kind_of Hash
       body.must_include "errors"
       body["errors"].must_include "customer"
+    end
+
+    it "returns a bad request for incorrectly creating a rental" do
+      rental_data.delete(:movie_id)
+
+      expect {
+        post check_out_path, params: rental_data
+      }.wont_change 'Rental.count'
+
+      must_respond_with :bad_request
+      body = JSON.parse(response.body)
+      body.must_be_kind_of Hash
+      body.must_include "errors"
+      body["errors"].must_include "movie"
     end
   end
 
@@ -98,26 +114,25 @@ describe RentalsController do
 
   end
 
-  # describe 'overdue' do
-  #   it 'returns a list of all customers with overdue books in JSON with a status code of success' do
-  #     #Arrange
-  #     # TODO create rentals in yml files with overdue parameters, or
-  #     # update yml rentals to change checked_out? to true (as long as date is
-  #     # more than 1 week ago)
-  #
-  #     get overdue_rentals_path
-  #
-  #     body = parse_json(expected_type: Array)
-  #
-  #     expect(body.keys.sort).must_equal MOVIE_FIELDS
-  #   end
-  #
-  #   it 'returns an empty array with a status code of success if there are no customers with overdue books' do
-  #     get overdue_rentals_path
-  #
-  #     body = parse_json(expected_type: Array)
-  #     expect(body).must_equal []
-  #   end
-  # end
+  describe 'overdue' do
+
+    it 'returns a list of all customers with overdue books in JSON with a status code of success' do
+      get overdue_path
+
+      body = parse_json(expected_type: Array)
+
+      expect(body[0].keys.sort).must_equal OVERDUE_FIELDS
+    end
+
+    it 'returns an empty array with a status code of success if there are no customers with overdue books' do
+      rental = rentals(:overdue_rental)
+      rental.update_attribute(:checked_out?, false)
+
+      get overdue_path
+
+      body = parse_json(expected_type: Array)
+      expect(body).must_equal []
+    end
+  end
 
 end
