@@ -1,2 +1,2 @@
 object @movies
-attributes :title, :overview, :release_date, :inventory
+attributes :id, :title, :overview, :release_date, :inventory
