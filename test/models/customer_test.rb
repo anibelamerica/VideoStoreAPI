@@ -85,7 +85,5 @@ describe Customer do
         expect(result).must_equal 1
       end
     end
-
   end
-
 end
