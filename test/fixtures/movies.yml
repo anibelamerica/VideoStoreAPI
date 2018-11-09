@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 movie_one:
-  title: MyString
+  title: The Devil Wears Prada
   overview: MyString
   release_date: 2018-11-05
   inventory: 1
 
 movie_two:
-  title: MyString
+  title: Black Panther
   overview: MyString
   release_date: 2018-11-05
   inventory: 1

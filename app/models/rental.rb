@@ -1,5 +1,6 @@
+ONE_WEEK = 7
+
 class Rental < ApplicationRecord
-  ONE_WEEK = 7
 
   validates :checked_out?, inclusion: { in: [true, false] }
 
