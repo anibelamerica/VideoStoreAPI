@@ -3,12 +3,8 @@ class Customer < ApplicationRecord
 
   has_many :rentals
 
-  def movies_checked_out
-    return self.rentals.select { |rental| rental.checked_out? }
-  end
-
   def movies_checked_out_count
-    return movies_checked_out.count
+    return self.rentals.count { |rental| rental.checked_out? }
   end
 
 end

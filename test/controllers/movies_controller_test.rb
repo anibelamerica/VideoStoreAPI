@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe MoviesController do
-  MOVIE_FIELDS = %w(title overview release_date inventory).sort
+  MOVIE_FIELDS = %w(title overview release_date inventory available_inventory).sort
 
   def parse_json(expected_type:, expected_status: :success)
     must_respond_with expected_status
@@ -22,6 +22,7 @@ describe MoviesController do
     end
 
     it "returns an empty array when there are no movies" do
+      Rental.destroy_all
       Movie.destroy_all
 
       get movies_path, as: :json

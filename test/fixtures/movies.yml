@@ -11,3 +11,9 @@ movie_two:
   overview: MyString
   release_date: 2018-11-05
   inventory: 1
+
+overdue_movie:
+  title: Goofy Movie
+  overview: MyString
+  release_date: 2017-11-05
+  inventory: 1

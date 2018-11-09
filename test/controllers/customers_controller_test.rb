@@ -21,6 +21,7 @@ describe CustomersController do
     end
 
     it "returns an empty array when there are no customers" do
+      Rental.destroy_all
       Customer.destroy_all
 
       get customers_path, as: :json

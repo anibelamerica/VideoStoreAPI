@@ -17,3 +17,12 @@ customer_two:
   state: MyString
   postal_code: MyString
   phone: MyString
+
+overdue_customer:
+  name: Over Dude
+  registered_at: 2018-11-05 12:31:28
+  address: MyString
+  city: MyString
+  state: MyString
+  postal_code: MyString
+  phone: MyString

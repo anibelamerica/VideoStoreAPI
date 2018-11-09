@@ -11,3 +11,9 @@ rental_two:
   due_date: 2018-11-16
   customer: customer_one
   movie: movie_one
+
+overdue_rental:
+  checked_out?: true
+  due_date: 2018-11-07
+  customer: overdue_customer
+  movie: overdue_movie
